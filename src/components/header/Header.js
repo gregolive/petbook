@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import StyledHeader, { NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink } from './StyledHeader'
+import { StyledHeader, NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink } from './StyledHeader'
 
 const Nav = ({ toggleTheme, dark, scroll }) => {
   const [menu, setMenu] = useState(false);

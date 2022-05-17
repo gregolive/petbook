@@ -21,10 +21,6 @@ const StyledHeader = styled.nav`
   }
 `;
 
-export default StyledHeader;
-
-// Logo
-
 const NavbarLogo = styled.a`
   color: ${(props) => props.theme.fontColor};
   font-family: 'Simplaform';
@@ -36,8 +32,6 @@ const NavbarLogo = styled.a`
 
   }
 `;
-
-// Theme swtich
 
 const NavbarSwitch = styled.label`
   position: relative;
@@ -111,8 +105,6 @@ const SwitchIcon = styled.div`
   }
 `;
 
-// Burger
-
 const NavbarBurger = styled.button`
   color: inherit;
   opacity: 0;
@@ -125,8 +117,6 @@ const NavbarBurger = styled.button`
     display: flex;
   }
 `;
-
-// Menu
 
 const NavbarMenu = styled.div`
   justify-self: end;
@@ -174,4 +164,4 @@ const NavbarLink = styled.a`
   }
 `;
 
-export { NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink };
+export { StyledHeader, NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink };

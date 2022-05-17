@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './assets/themes/themes';
 import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 import PostForm from './components/post/PostForm';
 
 const StyledApp = styled.div`
@@ -27,6 +28,7 @@ const App = () => {
       <StyledApp>
         <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
         <PostForm />
+        <Footer />
       </StyledApp>
     </ThemeProvider>
   );
