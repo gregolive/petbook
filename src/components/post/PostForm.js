@@ -4,8 +4,7 @@ import axios from 'axios';
 const PostForm = () => {
   const form = useRef();
   const [postData, setPostData] = useState({
-    title: '',
-    body: '',
+    text: '',
   });
 
   const formSubmit = (data) => {
@@ -14,10 +13,10 @@ const PostForm = () => {
   
     axios.post(url, data, config)
       .then((res) => {
-          console.log(res);
+        console.log(res);
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       });
   };
 
@@ -25,21 +24,19 @@ const PostForm = () => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('title', postData.title);
-    formData.append('body', postData.body);
+    formData.append('text', postData.text);
     formSubmit(formData);
   };
   
   const handleChange = (e) => setPostData({ ...postData, [e.target.name]: e.target.value });
   
   return (
-    <>
+    <main>
       <form ref={form} onSubmit={handleSubmit}>
-        <input type='text' id='title' name='title' placeholder='Title' value={postData.title} onChange={handleChange} />
-        <textarea id='body' name='body' placeholder='Body' value={postData.body} onChange={handleChange} />
+        <textarea id='text' name='text' placeholder='Woof woof' value={postData.text} onChange={handleChange} />
         <button type='submit'>Submit</button>
       </form>
-    </>
+    </main>
   );
 };
 

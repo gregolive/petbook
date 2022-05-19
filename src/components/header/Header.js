@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { StyledHeader, NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink } from './StyledHeader'
+import { StyledHeader, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink } from './StyledHeader'
+import Logo from '../logo/Logo';
 
 const Nav = ({ toggleTheme, dark, scroll }) => {
   const [menu, setMenu] = useState(false);
@@ -8,9 +9,7 @@ const Nav = ({ toggleTheme, dark, scroll }) => {
 
   return (
     <StyledHeader>
-      <NavbarLogo href='#'>
-        Petbook
-      </NavbarLogo>
+      <Logo href='/' />
 
       <NavbarSwitch>
         <input type='checkbox' onChange={toggleTheme} checked={(dark) ? 'checked' : ''} />

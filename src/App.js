@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './assets/themes/themes';
 import Header from './components/header/Header';
@@ -24,13 +25,17 @@ const App = () => {
   };
   
   return (
-    <ThemeProvider theme={theme}>
-      <StyledApp>
-        <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
-        <PostForm />
-        <Footer />
-      </StyledApp>
-    </ThemeProvider>
+    <Router basename={process.env.PUBLIC_URL}>
+      <ThemeProvider theme={theme}>
+        <StyledApp>
+          <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
+          <Routes>
+            <Route path='/' element={<PostForm />} />
+          </Routes>
+          <Footer />
+        </StyledApp>
+      </ThemeProvider>
+    </Router>
   );
 };
 

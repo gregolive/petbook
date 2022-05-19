@@ -3,33 +3,19 @@ import styled from 'styled-components';
 const StyledHeader = styled.nav`
   background: ${(props) => props.theme.backgroundColor};
   border-bottom: 1px solid ${(props) => props.theme.fontColor};
-  padding: 0.25rem 2rem;
+  height: 4rem;
   width: 100%;
+  padding: 0 2rem;
   display: grid;
   grid-template-columns: 1fr repeat(2, auto);
   align-items: center;
   column-gap: 1.5rem;
   line-height: 3rem;
-  position: fixed;
-  top: 0;
   box-sizing: border-box;
-  z-index: 2;
   transition: background 0.2s ease;
 
   @media screen and (max-width: 480px) {
-    padding: 0.25rem 1rem;
-  }
-`;
-
-const NavbarLogo = styled.a`
-  color: ${(props) => props.theme.fontColor};
-  font-family: 'Simplaform';
-  font-size: 2.5rem;
-  padding-top: 0.25rem;
-  justify-self: start;
-
-  img {
-
+    padding: 0 1rem;
   }
 `;
 
@@ -164,4 +150,4 @@ const NavbarLink = styled.a`
   }
 `;
 
-export { StyledHeader, NavbarLogo, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink };
+export { StyledHeader, NavbarSwitch, Slider, SwitchIcon, NavbarBurger, NavbarMenu, NavbarLink };
