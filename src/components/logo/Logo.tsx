@@ -14,11 +14,13 @@ const StyledLogo = styled.a`
   overflow: hidden;
 `;
 
-const Logo = ({ href }) => {
+interface LogoProps {
+  href: string;
+};
+
+const Logo = ({ href } : LogoProps) => {
   return (
-    <StyledLogo href={href} >
-      p
-    </StyledLogo>
+    <StyledLogo href={href}>p</StyledLogo>
   );
 };
 

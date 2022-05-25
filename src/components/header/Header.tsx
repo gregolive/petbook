@@ -1,22 +1,23 @@
 import { StyledHeader, NavbarSwitch, Slider, SwitchIcon } from './StyledHeader'
 import Logo from '../logo/Logo';
 
-const Nav = ({ toggleTheme, dark }) => {
+interface NavProps {
+  dark: boolean;
+  toggleTheme: Function;
+};
+
+const Nav = ({ dark, toggleTheme }: NavProps) => {
   return (
     <StyledHeader>
       <div>
         <Logo href='/' />
         
         <NavbarSwitch>
-          <input type='checkbox' onChange={toggleTheme} checked={(dark) ? 'checked' : ''} />
+          <input type='checkbox' onChange={() => toggleTheme()} checked={dark} />
           <Slider />
           <SwitchIcon className='moon'>🌜</SwitchIcon>
           <SwitchIcon className='sun'>🌞</SwitchIcon>
         </NavbarSwitch>
-      </div>
-
-      <div>
-        
       </div>
     </StyledHeader>
   );

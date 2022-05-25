@@ -12,14 +12,14 @@ const StyledApp = styled.div`
 `;
 
 const App = () => {
-  const [theme, setTheme] = useState((JSON.parse(localStorage.getItem('dark'))) ? darkTheme : lightTheme);
+  const [theme, setTheme] = useState((JSON.parse(localStorage.getItem('dark') || '')) ? darkTheme : lightTheme);
   
   const toggleTheme = () => {
     if (theme === lightTheme) {
-      localStorage.setItem('dark', true);
+      localStorage.setItem('dark', JSON.stringify(true));
       setTheme(darkTheme);
     } else {
-      localStorage.setItem('dark', false);
+      localStorage.setItem('dark', JSON.stringify(false));
       setTheme(lightTheme);
     }
   };

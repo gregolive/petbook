@@ -7,7 +7,7 @@ const PostForm = () => {
     text: '',
   });
 
-  const formSubmit = (data) => {
+  const formSubmit = (data: any): void => {
     const url = 'http://localhost:3001/api/v1/post/create';
     const config = { headers: { 'content-type': 'multipart/form-data' } };
   
@@ -20,7 +20,7 @@ const PostForm = () => {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -28,12 +28,12 @@ const PostForm = () => {
     formSubmit(formData);
   };
   
-  const handleChange = (e) => setPostData({ ...postData, [e.target.name]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => setPostData({ ...postData, [e.target.name]: e.target.value });
   
   return (
     <main>
-      <form ref={form} onSubmit={handleSubmit}>
-        <textarea id='text' name='text' placeholder='Woof woof' value={postData.text} onChange={handleChange} />
+      <form ref={form.current} onSubmit={handleSubmit}>
+        <textarea id='text' name='text' placeholder='Woof woof' value={postData.text} onChange={(e) => handleChange(e)} />
         <button type='submit'>Submit</button>
       </form>
     </main>
