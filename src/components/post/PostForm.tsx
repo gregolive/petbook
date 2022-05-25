@@ -1,5 +1,9 @@
 import { useRef, useState } from 'react';
 import axios from 'axios';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { StyledForm } from './StyledPostForm';
+
 
 const PostForm = () => {
   const form = useRef();
@@ -32,10 +36,10 @@ const PostForm = () => {
   
   return (
     <main>
-      <form ref={form.current} onSubmit={handleSubmit}>
-        <textarea id='text' name='text' placeholder='Woof woof' value={postData.text} onChange={(e) => handleChange(e)} />
-        <button type='submit'>Submit</button>
-      </form>
+      <StyledForm ref={form.current} onSubmit={handleSubmit}>
+        <TextField multiline id='text' name='text' label="Woof's on your mind?" size='small' value={postData.text} onChange={(e) => handleChange(e)} />
+        <Button type='submit' variant='contained'>Post</Button>
+      </StyledForm>
     </main>
   );
 };

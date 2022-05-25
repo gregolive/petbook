@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledHeader = styled.nav`
-  background: ${(props) => props.theme.headerColor};
+  background: ${(props) => props.theme.custom.header};
   height: 4rem;
   width: 100%;
   padding: 0 2rem;
@@ -38,7 +38,7 @@ const NavbarSwitch = styled.label`
 `;
 
 const Slider = styled.span`
-  background: ${(props) => props.theme.fontColor};
+  background: ${(props) => props.theme.custom.font};
   border-radius: 0.75rem;
   position: absolute;
   cursor: pointer;
@@ -62,11 +62,11 @@ const Slider = styled.span`
   }
 
   ${NavbarSwitch}:hover &:before{
-    box-shadow: ${(props) => props.theme.primaryColor} 0 0 8px;
+    box-shadow: ${(props) => props.theme.palette.primary.main} 0 0 8px;
   }
 
   input:checked + & {
-    background: ${(props) => props.theme.primaryColor};
+    background: ${(props) => props.theme.palette.primary.main};
   }
   
   input:checked + &:before {

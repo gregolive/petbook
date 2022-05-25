@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
-  color: ${(props) => props.theme.fontColor};
-  background: ${(props) => props.theme.backgroundColor};
+  color: ${(props) => props.theme.custom.font};
+  background: ${(props) => props.theme.custom.background};
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@ const FooterBtns = styled.div`
   }
   
   a:nth-child(2) {
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.custom.font};
   }
 `;
 
@@ -38,7 +38,7 @@ const FooterLinks = styled.div`
   gap: 0.2rem;
 
   a {
-    color: ${(props) => props.theme.fontColor};
+    color: ${(props) => props.theme.custom.font};
     border-radius: 0.3rem;
     padding: 0.2rem 0.4rem;
     justify-self: start;
