@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './assets/themes/themes';
+import { AuthProvider, ProtectedRoute, UnauthenticatedRoute } from './components/Auth';
 import Header from './components/Header';
-import Footer from './components/Footer';
+import Welcome from './components/Welcome';
 import PostFeed from './components/Post/Feed';
 
 const StyledApp = styled.div`
@@ -27,17 +28,25 @@ const App = () => {
   
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <MuiThemeProvider theme={theme}>
-        <ThemeProvider theme={theme}>
-          <StyledApp>
-            <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
-            <Routes>
-              <Route path='/' element={<PostFeed />} />
-            </Routes>
-            <Footer />
-          </StyledApp>
-        </ThemeProvider>
-      </MuiThemeProvider>
+      <AuthProvider>
+        <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            <StyledApp>
+              <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
+              <Routes>
+                <Route
+                  path='/welcome'
+                  element={<UnauthenticatedRoute><Welcome /></UnauthenticatedRoute>}
+                />
+                <Route
+                  path='/'
+                  element={<ProtectedRoute><PostFeed /></ProtectedRoute>}
+                />
+              </Routes>
+            </StyledApp>
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </AuthProvider>
     </Router>
   );
 };
