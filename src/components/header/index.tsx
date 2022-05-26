@@ -1,5 +1,5 @@
-import { StyledHeader, NavbarSwitch, Slider, SwitchIcon } from './StyledHeader'
-import Logo from '../logo/Logo';
+import { StyledHeader, NavbarSwitch, Slider, SwitchIcon } from './styled'
+import Logo from '../Logo';
 
 interface NavProps {
   dark: boolean;

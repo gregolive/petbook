@@ -2,14 +2,14 @@ import { useRef, useState } from 'react';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { StyledForm } from './StyledPostForm';
-
+import { StyledForm } from './styled';
 
 const PostForm = () => {
   const form = useRef();
-  const [postData, setPostData] = useState({
+  const emptyPostData = {
     text: '',
-  });
+  };
+  const [postData, setPostData] = useState(emptyPostData);
 
   const formSubmit = (data: any): void => {
     const url = 'http://localhost:3001/api/v1/post/create';
@@ -18,6 +18,7 @@ const PostForm = () => {
     axios.post(url, data, config)
       .then((res) => {
         console.log(res);
+        setPostData(emptyPostData);
       })
       .catch((err) => {
         console.log(err);

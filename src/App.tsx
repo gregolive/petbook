@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './assets/themes/themes';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import PostForm from './components/post/PostForm';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import PostForm from './components/Post/Form';
 
 const StyledApp = styled.div`
   background: ${(props) => props.theme.custom.background};
