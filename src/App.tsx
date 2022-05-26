@@ -5,7 +5,7 @@ import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import { lightTheme, darkTheme } from './assets/themes/themes';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import PostForm from './components/Post/Form';
+import PostFeed from './components/Post/Feed';
 
 const StyledApp = styled.div`
   background: ${(props) => props.theme.custom.background};
@@ -32,7 +32,7 @@ const App = () => {
           <StyledApp>
             <Header toggleTheme={toggleTheme} dark={(theme === darkTheme)} />
             <Routes>
-              <Route path='/' element={<PostForm />} />
+              <Route path='/' element={<PostFeed />} />
             </Routes>
             <Footer />
           </StyledApp>
