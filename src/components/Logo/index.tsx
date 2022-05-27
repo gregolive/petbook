@@ -1,27 +1,27 @@
 import styled from 'styled-components';
+import logo from '../../assets/img/logo.png';
 
-const StyledLogo = styled.a`
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(#38B6FA, #0583C7);
-  color: white;
-  border-radius: 50%;
-  height: 3rem;
-  width: 3rem;
-  text-align: center;
-  justify-self: start;
-  overflow: hidden;
+const StyledLink = styled.a`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledLogo = styled.img<{ size: string }>`
+  height: ${(props) => props.size};
+  width: ${(props) => props.size};
 `;
 
 interface LogoProps {
-  href: string;
+  link: string;
+  size: string;
 };
 
-const Logo = ({ href } : LogoProps) => {
+const LogoLink = ({ link, size } : LogoProps) => {
   return (
-    <StyledLogo href={href}>p</StyledLogo>
+    <StyledLink href={link}>
+      <StyledLogo src={logo} alt='petbook logo' size={size} />
+    </StyledLink>
   );
 };
 
-export default Logo;
+export default LogoLink;

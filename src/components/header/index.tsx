@@ -1,5 +1,5 @@
 import { StyledHeader, NavbarSwitch, Slider, SwitchIcon } from './styled'
-import Logo from '../Logo';
+import LogoLink from '../Logo';
 
 interface NavProps {
   dark: boolean;
@@ -10,7 +10,7 @@ const Nav = ({ dark, toggleTheme }: NavProps) => {
   return (
     <StyledHeader>
       <div>
-        <Logo href='/' />
+        <LogoLink link='/' size='3rem' />
         
         <NavbarSwitch>
           <input type='checkbox' onChange={() => toggleTheme()} checked={dark} />

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
   color: ${(props) => props.theme.custom.font};
-  background: ${(props) => props.theme.custom.background};
+  background: ${(props) => props.theme.custom.header};
   padding: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -11,7 +11,7 @@ const StyledFooter = styled.footer`
 
   small {
     font-size: 1rem;
-    font-weight: 200;
+    font-weight: 300;
   }
 `;
 
@@ -21,23 +21,20 @@ const FooterBtns = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  a:first-child {
-    height: 30px;
-    width: auto;
-  }
-  
   a:nth-child(2) {
     color: ${(props) => props.theme.custom.font};
+    display: flex;
+    align-items: center;
   }
 `;
 
 const FooterLinks = styled.div`
-  font-size: 0.95rem;
   width: 80%;
   display: grid;
   gap: 0.2rem;
 
-  a {
+  a, button {
+    font-size: 0.95rem;
     color: ${(props) => props.theme.custom.font};
     border-radius: 0.3rem;
     padding: 0.2rem 0.4rem;
@@ -45,8 +42,8 @@ const FooterLinks = styled.div`
     transition: all 0.2s ease;
   }
   
-  a:hover {
-    background: rgba(255, 255, 255, 0.15)
+  a:hover, button:hover {
+    background: rgba(255, 255, 255, 0.6);
   }
 `;
 

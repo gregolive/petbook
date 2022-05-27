@@ -13,8 +13,12 @@ body > * {
 
 main {
   padding: 3rem 2rem;
-  min-height: calc(100vh - 4rem - 1px);
+  min-height: calc(100vh - 4rem);
   box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
 a {
@@ -23,6 +27,7 @@ a {
 }
 
 button {
+  font-family: 'Roboto', sans-serif;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -35,6 +40,12 @@ ul {
 
 li {
   list-style: none; 
+}
+
+@media screen and (max-width: 480px) {
+  main {
+    padding: 3rem 1rem;
+  }
 }
 
 /* SMOOTH SCROLLING (IF user doesn't motion sensitivity preference) */

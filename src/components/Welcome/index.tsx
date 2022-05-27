@@ -1,12 +1,10 @@
+import Banner from './Banner';
 import Footer from '../Footer';
 
 const Welcome = () => {
   return (
     <>
-      <main>
-        
-      </main>
-
+      <Banner />
       <Footer />
     </>
   );
