@@ -2,26 +2,45 @@ import styled from 'styled-components';
 
 const StyledHeader = styled.nav`
   background: ${(props) => props.theme.custom.header};
-  height: 4rem;
+  height: 3.25rem;
   width: 100%;
   padding: 0 2rem;
   display: grid;
-  grid-template-columns: 1fr repeat(2, auto);
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   column-gap: 1.5rem;
   line-height: 3rem;
   box-sizing: border-box;
   transition: background 0.2s ease;
 
-  div:first-child {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  .MuiButtonBase-root {
+    min-height: 3.25rem;
+    min-width: 0;
+    max-width: none;
+    width: calc(2rem + 4vw);
+  }
+
+  .MuiTabs-root {
+    justify-self: center;
+  }
+
+  .MuiAvatar-root {
+    justify-self: end;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr repeat(2, auto);
   }
 
   @media screen and (max-width: 480px) {
     padding: 0 1rem;
   }
+`;
+
+const HeaderStart = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 `;
 
 const NavbarSwitch = styled.label`
@@ -96,4 +115,4 @@ const SwitchIcon = styled.div`
   }
 `;
 
-export { StyledHeader, NavbarSwitch, Slider, SwitchIcon };
+export { StyledHeader, HeaderStart, NavbarSwitch, Slider, SwitchIcon };
