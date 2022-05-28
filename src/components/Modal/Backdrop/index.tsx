@@ -13,16 +13,16 @@ const StyledBackdrop = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
+  z-index: 3;
 `;
 
-const Backdrop = ({ children, onClick}: BackdropProps) => {
+const Backdrop = ({ children, onClick }: BackdropProps) => {
   return (
     <StyledBackdrop
-      as={motion.div}
-      onClick={() => onClick}
+      onClick={() => onClick()}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

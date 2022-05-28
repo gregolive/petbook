@@ -1,20 +1,22 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Backdrop from './Backdrop';
 
 interface ModalProps {
+  children?: any;
   handleClose: Function;
-  text: string;
 };
 
 const StyledModal = styled(motion.div)`
-  border-radius: 1rem;
+  background: ${(props) => props.theme.custom.background};
+  border-radius: 0.5rem;
   margin: auto;
   padding: 0 2rem;
   width: clamp(50%, 700px, 90%);
   height: min(50%, 300px);
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 `;
 
 const dropIn = {
@@ -36,18 +38,27 @@ const dropIn = {
     opacity: 0,
     y: '100vh',
   },
-}
+};
 
-const Modal = ({ handleClose, text }: ModalProps) => {
+const Modal = ({ children, handleClose }: ModalProps) => {
   return (
     <Backdrop onClick={handleClose}>
-      <StyledModal
-        as={motion.div}
-        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-        variants={dropIn}
+      <AnimatePresence
+        initial={false}
+        exitBeforeEnter={true}
+        onExitComplete={() => null}
       >
-        
-      </StyledModal>
+        <StyledModal
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+          variants={dropIn}
+          initial='hidden'
+          animate='visible'
+          exit='exit'
+          drag
+        >
+          {children}
+        </StyledModal>
+      </AnimatePresence>
     </Backdrop>
   );
 };

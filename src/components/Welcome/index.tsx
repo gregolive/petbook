@@ -12,8 +12,8 @@ const Welcome = () => {
     <>
       <Banner setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       <Footer setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
-      {(showLogin) ? <Login /> : null}
-      {(showSignup) ? <Register /> : null}
+      {showLogin && <Login setShowLogin={setShowLogin} />}
+      {showSignup && <Register />}
     </>
   );
 };

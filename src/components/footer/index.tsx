@@ -18,8 +18,8 @@ const Footer = ({ setShowLogin, setShowSignup }: FooterProps) => {
       </FooterBtns>
 
       <FooterLinks>
-        <button>Log in</button>
-        <button>Register</button>
+        <button onClick={() => setShowLogin(true)}>Log in</button>
+        <button onClick={() => setShowSignup(true)}>Register</button>
         <a href='https://github.com/gregolive/petbook' target='_blank' rel='noreferrer'>Under the hood</a>
       </FooterLinks>
 

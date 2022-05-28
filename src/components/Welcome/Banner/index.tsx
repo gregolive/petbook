@@ -20,8 +20,8 @@ const WelcomeBanner = ({ setShowLogin, setShowSignup }: BannerProps) => {
             Connect with other pet lovers and their furry friends in a few simple clicks.
             It's a cuteness overload!
           </p>
-          <Button variant='contained' disableElevation>Log in</Button>
-          <Button variant='outlined'>Register</Button>
+          <Button onClick={() => setShowLogin(true)} variant='contained' disableElevation>Log in</Button>
+          <Button onClick={() => setShowSignup(true)} variant='outlined'>Register</Button>
         </BannerArticle>
         <Illustration src={hero} alt='dog illustration' />
       </BannerSection>

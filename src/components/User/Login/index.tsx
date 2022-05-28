@@ -1,9 +1,15 @@
+import Modal from '../../Modal';
+import LoginForm from './Form';
 
-const Login = () => {
+interface LoginProps {
+  setShowLogin: Function
+};
+
+const Login = ({ setShowLogin }: LoginProps) => {
   return (
-    <>
-      
-    </>
+    <Modal handleClose={() => setShowLogin(false)}>
+      <LoginForm />
+    </Modal>
   );
 };
 
