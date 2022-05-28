@@ -4,7 +4,12 @@ import { Banner, BannerSection, BannerArticle, Illustration } from './styled';
 import Timeline from './Timeline';
 import Reviews from './Reviews';
 
-const WelcomeBanner = () => {
+interface BannerProps {
+  setShowLogin: Function;
+  setShowSignup: Function;  
+};
+
+const WelcomeBanner = ({ setShowLogin, setShowSignup }: BannerProps) => {
   return (
     <Banner>
       <BannerSection>

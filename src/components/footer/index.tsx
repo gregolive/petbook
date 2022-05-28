@@ -1,8 +1,12 @@
 import { StyledFooter, FooterBtns, FooterLinks } from './styled';
 import LogoLink from '../Logo';
 
+interface FooterProps {
+  setShowLogin: Function;
+  setShowSignup: Function;  
+};
 
-const Footer = () => {
+const Footer = ({ setShowLogin, setShowSignup }: FooterProps) => {
   return (
     <StyledFooter>
       <FooterBtns>

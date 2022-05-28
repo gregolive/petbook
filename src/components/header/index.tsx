@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import HomeIcon from '@mui/icons-material/Home';
 import PeopleIcon from '@mui/icons-material/People';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import { StyledHeader, HeaderStart, NavbarSwitch, Slider, SwitchIcon, EndSignedOut } from './styled';
+import { StyledHeader, HeaderStart, NavbarSwitch, Slider, SwitchIcon } from './styled';
 import LogoLink from '../Logo';
 import avatar from '../../assets/img/avatar.jpg';
 
@@ -70,12 +69,7 @@ const Nav = ({ dark, toggleTheme }: NavProps) => {
             <Avatar alt='Remy Sharp' src={avatar} />
           </IconButton>
         </>
-      ) : (
-        <EndSignedOut>
-          <Button variant='contained' disableElevation>Log in</Button>
-          <Button variant='outlined'>Register</Button>
-        </EndSignedOut>
-      )}
+      ) : null}
     </StyledHeader>
   );
 };

@@ -115,19 +115,4 @@ const SwitchIcon = styled.div`
   }
 `;
 
-const EndSignedOut = styled.div`
-  grid-column: 2 / -1;
-  justify-self: end;
-
-  button:first-of-type {
-    color: ${(props) => props.theme.custom.background};
-    margin-right: 0.5rem;
-  }
-
-  .MuiButtonBase-root {
-    min-height: 0;
-    width: auto;
-  }
-`;
-
-export { StyledHeader, HeaderStart, NavbarSwitch, Slider, SwitchIcon, EndSignedOut };
+export { StyledHeader, HeaderStart, NavbarSwitch, Slider, SwitchIcon };
