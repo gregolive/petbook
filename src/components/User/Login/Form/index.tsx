@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import axios from 'axios';
 import { useAuth } from '../../../Auth';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -10,20 +11,38 @@ import { StyledForm, FormHeading, FormText } from '../../styled';
 interface LoginFormProps {
   closeModal: Function;
   changeModal: Function;
+  setLoading: Function;
 };
 
-const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
-  const { authError, onLogin } = useAuth();
+const LoginForm = ({ closeModal, changeModal, setLoading }: LoginFormProps) => {
+  const { onLogin } = useAuth();
   const form = useRef();
   const [formError, setFormError] = useState(false);
   const [userData, setUserData] = useState({
     username: '',
     password: '',
   });
-  const [inputError, setInputError ] = useState({
+  const [inputError, setInputError] = useState({
     username: '',
     password: '',
   });
+  const [submitError, setSubmitError] = useState('');
+
+  const formSubmit = (): void => {
+    const apiURL = 'http://localhost:3001/api/v1/login';
+  
+    axios.post(apiURL, {
+      username: userData.username,
+      password: userData.password,
+    }).then((res) => {
+      onLogin(res.data);
+    }, (err) => {
+      console.log(err.response.data.message.message)
+      setSubmitError(err.response.data.message.message);
+      setLoading(false);
+      console.log(submitError)
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -33,7 +52,9 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
       setFormError(true);
       return;
     }
-    onLogin(userData.username, userData.password);
+    setSubmitError('');
+    setLoading(true);
+    formSubmit();
   };
 
   const validateInput = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -56,6 +77,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
   };
 
   const handleChange = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setSubmitError('');
     setFormError(false);
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -63,7 +85,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
   return (
     <>
       <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
-        <FormControl error={formError || authError.length > 1}>
+        <FormControl error={formError || submitError.length > 1}>
         <FormHeading>Hello again! 🐶</FormHeading>
 
         <TextField 
@@ -104,8 +126,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
             <Button onClick={() => closeModal()} variant='outlined'>Cancel</Button>
           </ButtonGroup>
   
-          <FormHelperText>{formError && 'Please enter a valid username and password'}</FormHelperText>
-          <FormHelperText>{authError}</FormHelperText>
+          <FormHelperText>{(formError && 'Please enter a valid username and password') || submitError}</FormHelperText>
         </div>
         </FormControl>
       </StyledForm>

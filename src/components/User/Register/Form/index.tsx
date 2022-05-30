@@ -12,6 +12,20 @@ interface RegisterFormProps {
   changeModal: Function;
 };
 
+type Error = {
+  location: string;
+  msg: string;
+  param: string;
+  value: string;
+};
+
+interface ServerError {
+  username?: Error;
+  name?: Error;
+  email?: Error;
+  password?: Error;
+};
+
 const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
   const form = useRef();
   const [formError, setFormError] = useState(false);
@@ -29,6 +43,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     password: '',
     passwordConfirmation: '',
   });
+  const [submitError, setSubmitError] = useState<ServerError>({});
 
   const buildFormData = () => {
     const formData = new FormData();
@@ -50,7 +65,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.errors);
+        setSubmitError(err.response.data.errors);
       });
   };
 
@@ -116,8 +132,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             onBlur={(e) => validateInput(e)}
             inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
             required
-            error={inputError.username.length > 1}
-            helperText={(inputError.username.length > 1) && inputError.username}
+            error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
+            helperText={(inputError.username.length > 1 && inputError.username) || (submitError.username && submitError.username.msg)}
           />
           <TextField
             type='text'
@@ -131,8 +147,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             onBlur={(e) => validateInput(e)}
             inputProps={{ pattern: '[a-zA-Z ]+$'}}
             required
-            error={inputError.name.length > 1}
-            helperText={(inputError.name.length > 1) && inputError.name}
+            error={inputError.name.length > 1 || typeof submitError.name !== 'undefined'}
+            helperText={(inputError.name.length > 1 && inputError.name) || (submitError.name && submitError.name.msg)}
           />
           <TextField
             type='email'
@@ -145,8 +161,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             onChange={handleChange}
             onBlur={(e) => validateInput(e)}
             required
-            error={inputError.email.length > 1}
-            helperText={(inputError.email.length > 1) && inputError.email}
+            error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
+            helperText={(inputError.email.length > 1 && inputError.email) || (submitError.email && submitError.email.msg)}
           />
           <TextField
             type='password'
@@ -161,8 +177,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             onBlur={(e) => validateInput(e)}
             inputProps={{ pattern: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}' }}
             required
-            error={inputError.password.length > 1}
-            helperText={(inputError.password.length > 1) && inputError.password}
+            error={inputError.password.length > 1 || typeof submitError.password !== 'undefined'}
+            helperText={(inputError.password.length > 1 && inputError.password) || (submitError.password && submitError.password.msg)}
           />
           <TextField
             type='password'
@@ -178,7 +194,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             inputProps={{ pattern: userData.password }}
             required
             error={inputError.passwordConfirmation.length > 1}
-            helperText={(inputError.passwordConfirmation.length > 1) && inputError.passwordConfirmation}
+            helperText={inputError.passwordConfirmation.length > 1 && inputError.passwordConfirmation}
           />
 
           <div>

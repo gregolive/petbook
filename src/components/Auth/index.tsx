@@ -1,6 +1,5 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 interface AuthData {
   token: string,
@@ -8,7 +7,6 @@ interface AuthData {
 
 interface AuthContextProvider {
   token: string,
-  authError: string,
   onLogin: Function,
   onLogout: Function,
   onUpdate: Function,
@@ -20,47 +18,28 @@ const AuthProvider = ({ children }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useState(localStorage.getItem('token') || '');
-  const [authError, setAuthError] = useState('');
 
   // navigate when token updates
   useEffect(() => {
     navigate(location.pathname); // eslint-disable-next-line
   }, [token]);
 
-  const setAuthData = (data: AuthData) => {
+  const handleLogin = (data: AuthData) => {
     setToken(data.token);
     localStorage.setItem('token', data.token);
   };
 
-  const authRequest = async (username: string, password: string) => {
-    const apiURL = 'http://localhost:3001/api/v1/login';
-  
-    axios.post(apiURL, {
-      username,
-      password,
-    }).then((res) => {
-      setAuthData(res.data);
-    }, (err) => {
-      setAuthError(err.response.data.message.message);
-    });
-  };
-
-  const handleLogin = async (username: string, password: string) => {
-    await authRequest(username, password);
-  };
-
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     setToken('');
     localStorage.removeItem('token');
   };
 
-  const handleUpdate = () => {
+  const handleUpdate = (): void => {
     
   };
 
   const value: AuthContextProvider = {
     token,
-    authError,
     onLogin: handleLogin,
     onLogout: handleLogout,
     onUpdate: handleUpdate,
