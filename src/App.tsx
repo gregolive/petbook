@@ -16,7 +16,7 @@ const StyledApp = styled.div`
 const App = () => {
   const [theme, setTheme] = useState((JSON.parse(localStorage.getItem('dark') || '')) ? darkTheme : lightTheme);
   
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     if (theme === lightTheme) {
       localStorage.setItem('dark', JSON.stringify(true));
       setTheme(darkTheme);

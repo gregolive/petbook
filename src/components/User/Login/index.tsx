@@ -7,9 +7,9 @@ interface LoginProps {
 };
 
 const Login = ({ setShowLogin, setShowSignup }: LoginProps) => {
-  const closeModal = () => setShowLogin(false);
+  const closeModal = (): void => setShowLogin(false);
 
-  const changeModal = () => {
+  const changeModal = (): void => {
     closeModal();
     setShowSignup(true);
   };
