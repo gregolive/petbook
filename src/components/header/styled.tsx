@@ -13,7 +13,7 @@ const StyledHeader = styled.nav`
   box-sizing: border-box;
   transition: background 0.2s ease;
 
-  .MuiButtonBase-root {
+  .MuiButtonBase-root:not(.MuiIconButton-root) {
     min-height: 3.25rem;
     min-width: 0;
     max-width: none;
@@ -24,8 +24,9 @@ const StyledHeader = styled.nav`
     justify-self: center;
   }
 
-  .MuiButtonBase-root {
+  .MuiIconButton-root {
     justify-self: end;
+    margin-left: 0;
   }
 
   @media screen and (max-width: 768px) {

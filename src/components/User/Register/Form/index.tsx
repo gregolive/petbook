@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
@@ -13,8 +14,14 @@ interface RegisterFormProps {
 
 const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
   const form = useRef();
-  const [password, setPassword] = useState('');
   const [formError, setFormError] = useState(false);
+  const [userData, setUserData] = useState({
+    username: '',
+    name: '',
+    email: '',
+    password: '',
+    passwordConfirmation: '',
+  });
   const [inputError, setInputError ] = useState({
     username: '',
     name: '',
@@ -23,8 +30,28 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     passwordConfirmation: '',
   });
 
-  const formSubmit = (): void => {
+  const buildFormData = () => {
+    const formData = new FormData();
+    formData.append('username', userData.username);
+    formData.append('name', userData.name);
+    formData.append('email', userData.email);
+    formData.append('password', userData.password);
 
+    return formData;
+  };
+
+  const formSubmit = (): void => {
+    const formData = buildFormData();
+    const url = 'http://localhost:3001/api/v1/user/create';
+    const config = { headers: { 'content-type': 'multipart/form-data' } };
+
+    axios.post(url, formData, config)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
@@ -66,10 +93,10 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     }
   };
 
-  const handlePasswordChange = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const handleChange = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setFormError(false);
-    setPassword(e.target.value);
-  }
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
@@ -84,7 +111,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             label='Username'
             variant='outlined'
             size='small'
-            onChange={() => setFormError(false)}
+            value={userData.username}
+            onChange={handleChange}
             onBlur={(e) => validateInput(e)}
             inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
             required
@@ -98,7 +126,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             label='Name'
             variant='outlined'
             size='small'
-            onChange={() => setFormError(false)}
+            value={userData.name}
+            onChange={handleChange}
             onBlur={(e) => validateInput(e)}
             inputProps={{ pattern: '[a-zA-Z ]+$'}}
             required
@@ -112,7 +141,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             label='Email'
             variant='outlined'
             size='small'
-            onChange={() => setFormError(false)}
+            value={userData.email}
+            onChange={handleChange}
             onBlur={(e) => validateInput(e)}
             required
             error={inputError.email.length > 1}
@@ -126,8 +156,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             label='Password'
             variant='outlined'
             size='small'
-            value={password}
-            onChange={handlePasswordChange}
+            value={userData.password}
+            onChange={handleChange}
             onBlur={(e) => validateInput(e)}
             inputProps={{ pattern: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}' }}
             required
@@ -142,9 +172,10 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
             label='Confirm Password'
             variant='outlined'
             size='small'
-            onChange={() => setFormError(false)}
+            value={userData.passwordConfirmation}
+            onChange={handleChange}
             onBlur={(e) => validateInput(e)}
-            inputProps={{ pattern: password }}
+            inputProps={{ pattern: userData.password }}
             required
             error={inputError.passwordConfirmation.length > 1}
             helperText={(inputError.passwordConfirmation.length > 1) && inputError.passwordConfirmation}

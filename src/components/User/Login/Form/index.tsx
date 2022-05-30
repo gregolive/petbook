@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useAuth } from '../../../Auth';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
@@ -12,16 +13,17 @@ interface LoginFormProps {
 };
 
 const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
+  const { authError, onLogin } = useAuth();
   const form = useRef();
   const [formError, setFormError] = useState(false);
+  const [userData, setUserData] = useState({
+    username: '',
+    password: '',
+  });
   const [inputError, setInputError ] = useState({
     username: '',
     password: '',
   });
-
-  const formSubmit = (): void => {
-
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -31,7 +33,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
       setFormError(true);
       return;
     }
-    formSubmit();
+    onLogin(userData.username, userData.password);
   };
 
   const validateInput = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -53,10 +55,15 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
     }
   };
 
+  const handleChange = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    setFormError(false);
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
-        <FormControl error={formError}>
+        <FormControl error={formError || authError.length > 1}>
         <FormHeading>Hello again! 🐶</FormHeading>
 
         <TextField 
@@ -66,7 +73,8 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           label='Username'
           variant='outlined'
           size='small'
-          onChange={() => setFormError(false)}
+          value={userData.username}
+          onChange={handleChange}
           onBlur={(e) => validateInput(e)}
           inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
           required
@@ -81,12 +89,15 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           label='Password'
           variant='outlined'
           size='small'
+          value={userData.password}
+          onChange={handleChange}
           onBlur={(e) => validateInput(e)}
           inputProps={{ pattern: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}' }}
           required
           error={inputError.password.length > 1}
           helperText={(inputError.password.length > 1) && inputError.password}
         />
+
         <div>
           <ButtonGroup fullWidth>
             <Button type='submit' variant='contained' disableElevation>Login</Button>
@@ -94,6 +105,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           </ButtonGroup>
   
           <FormHelperText>{formError && 'Please enter a valid username and password'}</FormHelperText>
+          <FormHelperText>{authError}</FormHelperText>
         </div>
         </FormControl>
       </StyledForm>
