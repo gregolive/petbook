@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Backdrop from './Backdrop';
 
 interface ModalProps {
@@ -43,22 +43,16 @@ const dropIn = {
 const Modal = ({ children, handleClose }: ModalProps) => {
   return (
     <Backdrop onClick={handleClose}>
-      <AnimatePresence
-        initial={false}
-        exitBeforeEnter={true}
-        onExitComplete={() => null}
+      <StyledModal
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+        variants={dropIn}
+        initial='hidden'
+        animate='visible'
+        exit='exit'
+        drag
       >
-        <StyledModal
-          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-          variants={dropIn}
-          initial='hidden'
-          animate='visible'
-          exit='exit'
-          drag
-        >
-          {children}
-        </StyledModal>
-      </AnimatePresence>
+        {children}
+      </StyledModal>
     </Backdrop>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Banner from './Banner';
 import Footer from '../Footer';
 import Login from '../User/Login';
@@ -12,8 +13,10 @@ const Welcome = () => {
     <>
       <Banner setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       <Footer setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
-      {showLogin && <Login setShowLogin={setShowLogin} />}
-      {showSignup && <Register />}
+      <AnimatePresence exitBeforeEnter>
+        {showLogin && <Login setShowLogin={setShowLogin} />}
+        {showSignup && <Register setShowSignup={setShowSignup} />}
+      </AnimatePresence>
     </>
   );
 };

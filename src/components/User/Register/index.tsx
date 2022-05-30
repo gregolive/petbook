@@ -1,9 +1,15 @@
+import Modal from '../../Modal';
+import RegisterForm from './Form';
 
-const Register = () => {
+interface RegisterProps {
+  setShowSignup: Function;
+};
+
+const Register = ({ setShowSignup }: RegisterProps) => {
   return (
-    <>
-      
-    </>
+    <Modal handleClose={() => setShowSignup(false)}>
+      <RegisterForm />
+    </Modal>
   );
 };
 
