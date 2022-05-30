@@ -7,9 +7,9 @@ interface RegisterProps {
 };
 
 const Register = ({ setShowLogin, setShowSignup }: RegisterProps) => {
-  const closeModal = () => setShowSignup(false);
+  const closeModal = (): void => setShowSignup(false);
 
-  const changeModal = () => {
+  const changeModal = (): void => {
     closeModal();
     setShowLogin(true);
   };

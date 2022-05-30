@@ -2,11 +2,22 @@ import styled from 'styled-components';
 
 const StyledForm = styled.form`
   width: 100%;
-  display: grid;
-  gap: 1rem;
+
+  .MuiFormControl-root {  
+    display: grid;
+    gap: 1rem;
+  }
+
+  .MuiTextField-root {
+    gap: 0;
+  }
 
   button:first-of-type {
     color: ${(props) => props.theme.custom.background};
+  }
+
+  .MuiFormHelperText-root {
+    margin: 3px 0 0;
   }
 `;
 
