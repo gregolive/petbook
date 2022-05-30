@@ -14,8 +14,8 @@ const Welcome = () => {
       <Banner setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       <Footer setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
       <AnimatePresence exitBeforeEnter>
-        {showLogin && <Login setShowLogin={setShowLogin} />}
-        {showSignup && <Register setShowSignup={setShowSignup} />}
+        {showLogin && <Login setShowLogin={setShowLogin} setShowSignup={setShowSignup} />}
+        {showSignup && <Register setShowLogin={setShowLogin} setShowSignup={setShowSignup} />}
       </AnimatePresence>
     </>
   );

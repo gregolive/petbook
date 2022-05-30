@@ -11,10 +11,10 @@ const StyledModal = styled(motion.div)`
   background: ${(props) => props.theme.custom.background};
   border-radius: 0.5rem;
   margin: auto;
-  padding: 0 2rem;
-  width: clamp(50%, 700px, 90%);
-  height: min(50%, 300px);
+  padding: 1.5rem 2rem 1rem 2rem;
+  width: clamp(40%, 30rem, 90%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   box-sizing: border-box;
 `;

@@ -2,13 +2,21 @@ import Modal from '../../Modal';
 import LoginForm from './Form';
 
 interface LoginProps {
-  setShowLogin: Function
+  setShowLogin: Function;
+  setShowSignup: Function;
 };
 
-const Login = ({ setShowLogin }: LoginProps) => {
+const Login = ({ setShowLogin, setShowSignup }: LoginProps) => {
+  const closeModal = () => setShowLogin(false);
+
+  const changeModal = () => {
+    closeModal();
+    setShowSignup(true);
+  };
+
   return (
     <Modal handleClose={() => setShowLogin(false)}>
-      <LoginForm />
+      <LoginForm closeModal={closeModal} changeModal={changeModal} />
     </Modal>
   );
 };
