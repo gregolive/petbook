@@ -24,7 +24,7 @@ const AuthProvider = ({ children }: any) => {
     navigate(location.pathname); // eslint-disable-next-line
   }, [token]);
 
-  const handleLogin = (data: AuthData) => {
+  const handleLogin = (data: AuthData): void => {
     setToken(data.token);
     localStorage.setItem('token', data.token);
   };

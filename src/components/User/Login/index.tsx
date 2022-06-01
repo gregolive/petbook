@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import Modal from '../../Modal';
 import LoginForm from './Form';
-import CircularProgress from '@mui/material/CircularProgress';
 
 interface LoginProps {
   setShowLogin: Function;
@@ -9,8 +7,6 @@ interface LoginProps {
 };
 
 const Login = ({ setShowLogin, setShowSignup }: LoginProps) => {
-  const [loading, setLoading] = useState(false);
-
   const closeModal = (): void => setShowLogin(false);
 
   const changeModal = (): void => {
@@ -20,11 +16,7 @@ const Login = ({ setShowLogin, setShowSignup }: LoginProps) => {
 
   return (
     <Modal handleClose={() => setShowLogin(false)}>
-      {(loading) ? (
-        <CircularProgress />
-      ) : (
-        <LoginForm closeModal={closeModal} changeModal={changeModal} setLoading={setLoading} />
-      )}
+      <LoginForm closeModal={closeModal} changeModal={changeModal}  />
     </Modal>
   );
 };

@@ -1,10 +1,12 @@
 import { useRef, useState } from 'react';
+import { useAuth } from '../../../Auth';
 import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
 import { StyledForm, FormHeading, FormText } from '../../styled';
 
 interface RegisterFormProps {
@@ -27,6 +29,7 @@ interface ServerError {
 };
 
 const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
+  const { onLogin } = useAuth();
   const form = useRef();
   const [formError, setFormError] = useState(false);
   const [userData, setUserData] = useState({
@@ -44,6 +47,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     passwordConfirmation: '',
   });
   const [submitError, setSubmitError] = useState<ServerError>({});
+  const [loading, setLoading] = useState(false); 
 
   const buildFormData = () => {
     const formData = new FormData();
@@ -57,16 +61,16 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
 
   const formSubmit = (): void => {
     const formData = buildFormData();
-    const url = 'http://localhost:3001/api/v1/user/create';
+    const url = 'http://localhost:3001/api/v1/auth/register';
     const config = { headers: { 'content-type': 'multipart/form-data' } };
 
     axios.post(url, formData, config)
       .then((res) => {
-        console.log(res);
+        onLogin(res.data);
       })
       .catch((err) => {
-        console.log(err.response.data.errors);
         setSubmitError(err.response.data.errors);
+        setLoading(false);
       });
   };
 
@@ -78,6 +82,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
       setFormError(true);
       return;
     }
+    setLoading(true);
     formSubmit();
   };
 
@@ -115,103 +120,107 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
   };
 
   return (
-    <>
-      <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
-        <FormControl error={formError}>
-          <FormHeading>Welcome friend! 🐱</FormHeading>
+    (loading) ? (
+      <CircularProgress />
+    ) : (
+      <>
+        <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
+          <FormControl error={formError}>
+            <FormHeading>Welcome friend! 🐱</FormHeading>
 
-          <TextField 
-            type='text'
-            id='username'
-            name='username'
-            label='Username'
-            variant='outlined'
-            size='small'
-            value={userData.username}
-            onChange={handleChange}
-            onBlur={(e) => validateInput(e)}
-            inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
-            required
-            error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
-            helperText={(inputError.username.length > 1 && inputError.username) || (submitError.username && submitError.username.msg)}
-          />
-          <TextField
-            type='text'
-            id='name'
-            name='name'
-            label='Name'
-            variant='outlined'
-            size='small'
-            value={userData.name}
-            onChange={handleChange}
-            onBlur={(e) => validateInput(e)}
-            inputProps={{ pattern: '[a-zA-Z ]+$'}}
-            required
-            error={inputError.name.length > 1 || typeof submitError.name !== 'undefined'}
-            helperText={(inputError.name.length > 1 && inputError.name) || (submitError.name && submitError.name.msg)}
-          />
-          <TextField
-            type='email'
-            id='email'
-            name='email'
-            label='Email'
-            variant='outlined'
-            size='small'
-            value={userData.email}
-            onChange={handleChange}
-            onBlur={(e) => validateInput(e)}
-            required
-            error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
-            helperText={(inputError.email.length > 1 && inputError.email) || (submitError.email && submitError.email.msg)}
-          />
-          <TextField
-            type='password'
-            id='password'
-            name='password'
-            autoComplete='off'
-            label='Password'
-            variant='outlined'
-            size='small'
-            value={userData.password}
-            onChange={handleChange}
-            onBlur={(e) => validateInput(e)}
-            inputProps={{ pattern: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}' }}
-            required
-            error={inputError.password.length > 1 || typeof submitError.password !== 'undefined'}
-            helperText={(inputError.password.length > 1 && inputError.password) || (submitError.password && submitError.password.msg)}
-          />
-          <TextField
-            type='password'
-            id='passwordConfirmation'
-            name='passwordConfirmation'
-            autoComplete='off'
-            label='Confirm Password'
-            variant='outlined'
-            size='small'
-            value={userData.passwordConfirmation}
-            onChange={handleChange}
-            onBlur={(e) => validateInput(e)}
-            inputProps={{ pattern: userData.password }}
-            required
-            error={inputError.passwordConfirmation.length > 1}
-            helperText={inputError.passwordConfirmation.length > 1 && inputError.passwordConfirmation}
-          />
+            <TextField 
+              type='text'
+              id='username'
+              name='username'
+              label='Username'
+              variant='outlined'
+              size='small'
+              value={userData.username}
+              onChange={handleChange}
+              onBlur={(e) => validateInput(e)}
+              inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
+              required
+              error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
+              helperText={(inputError.username.length > 1 && inputError.username) || (submitError.username && submitError.username.msg)}
+            />
+            <TextField
+              type='text'
+              id='name'
+              name='name'
+              label='Name'
+              variant='outlined'
+              size='small'
+              value={userData.name}
+              onChange={handleChange}
+              onBlur={(e) => validateInput(e)}
+              inputProps={{ pattern: '[a-zA-Z ]+$'}}
+              required
+              error={inputError.name.length > 1 || typeof submitError.name !== 'undefined'}
+              helperText={(inputError.name.length > 1 && inputError.name) || (submitError.name && submitError.name.msg)}
+            />
+            <TextField
+              type='email'
+              id='email'
+              name='email'
+              label='Email'
+              variant='outlined'
+              size='small'
+              value={userData.email}
+              onChange={handleChange}
+              onBlur={(e) => validateInput(e)}
+              required
+              error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
+              helperText={(inputError.email.length > 1 && inputError.email) || (submitError.email && submitError.email.msg)}
+            />
+            <TextField
+              type='password'
+              id='password'
+              name='password'
+              autoComplete='off'
+              label='Password'
+              variant='outlined'
+              size='small'
+              value={userData.password}
+              onChange={handleChange}
+              onBlur={(e) => validateInput(e)}
+              inputProps={{ pattern: '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{6,}' }}
+              required
+              error={inputError.password.length > 1 || typeof submitError.password !== 'undefined'}
+              helperText={(inputError.password.length > 1 && inputError.password) || (submitError.password && submitError.password.msg)}
+            />
+            <TextField
+              type='password'
+              id='passwordConfirmation'
+              name='passwordConfirmation'
+              autoComplete='off'
+              label='Confirm Password'
+              variant='outlined'
+              size='small'
+              value={userData.passwordConfirmation}
+              onChange={handleChange}
+              onBlur={(e) => validateInput(e)}
+              inputProps={{ pattern: userData.password }}
+              required
+              error={inputError.passwordConfirmation.length > 1}
+              helperText={inputError.passwordConfirmation.length > 1 && inputError.passwordConfirmation}
+            />
 
-          <div>
-            <ButtonGroup fullWidth>
-              <Button type='submit' variant='contained' disableElevation>Register</Button>
-              <Button onClick={() => closeModal()} variant='outlined'>Cancel</Button>
-            </ButtonGroup>
+            <div>
+              <ButtonGroup fullWidth>
+                <Button type='submit' variant='contained' disableElevation>Register</Button>
+                <Button onClick={() => closeModal()} variant='outlined'>Cancel</Button>
+              </ButtonGroup>
 
-            <FormHelperText>{formError && 'Please fill in required fields with valid entries'}</FormHelperText>
-          </div>
-        </FormControl>
-      </StyledForm>
+              <FormHelperText>{formError && 'Please fill in required fields with valid entries'}</FormHelperText>
+            </div>
+          </FormControl>
+        </StyledForm>
 
-      <FormText>
-        Already have an account? <Button onClick={() => changeModal()}>Log in</Button>
-      </FormText>
-    </>
+        <FormText>
+          Already have an account? <Button onClick={() => changeModal()}>Log in</Button>
+        </FormText>
+      </>
+    )
   );
 };
 
