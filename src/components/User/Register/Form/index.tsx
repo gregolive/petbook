@@ -67,8 +67,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     axios.post(url, formData, config)
       .then((res) => {
         onLogin(res.data);
-      })
-      .catch((err) => {
+      }, (err) => {
         setSubmitError(err.response.data.errors);
         setLoading(false);
       });

@@ -4,41 +4,68 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { StyledForm } from './styled';
 
-const PostForm = () => {
+interface FormProps {
+  token: string;
+};
+
+const PostForm = ({ token }: FormProps) => {
   const form = useRef();
   const emptyPostData = {
     text: '',
   };
   const [postData, setPostData] = useState(emptyPostData);
 
-  const formSubmit = (data: any): void => {
+  const buildFormData = () => {
+    const formData = new FormData();
+    formData.append('text', postData.text);
+
+    return formData;
+  };
+
+  const formSubmit = (): void => {
+    const data = buildFormData();
     const url = 'http://localhost:3001/api/v1/post/create';
-    const config = { headers: { 'content-type': 'multipart/form-data' } };
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        authorization: `Bearer ${token}`,
+      },
+    };
   
     axios.post(url, data, config)
       .then((res) => {
         console.log(res);
         setPostData(emptyPostData);
-      })
-      .catch((err) => {
+      }, (err) => {
         console.log(err);
       });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('text', postData.text);
-    formSubmit(formData);
+    
+    const validForm = (e.target as HTMLFormElement).checkValidity();
+    console.log(validForm);
+    if (validForm) {
+      formSubmit();
+    }
   };
   
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => setPostData({ ...postData, [e.target.name]: e.target.value });
   
   return (
     <main>
-      <StyledForm ref={form.current} onSubmit={handleSubmit}>
-        <TextField multiline id='text' name='text' label="Woof's on your mind?" size='small' value={postData.text} onChange={(e) => handleChange(e)} />
+      <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
+        <TextField
+          multiline
+          id='text'
+          name='text'
+          label="Woof's on your mind?"
+          size='small'
+          value={postData.text}
+          onChange={(e) => handleChange(e)}
+          required
+        />
         <Button type='submit' variant='contained'>Post</Button>
       </StyledForm>
     </main>
