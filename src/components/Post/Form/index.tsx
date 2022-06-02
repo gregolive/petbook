@@ -54,7 +54,7 @@ const PostForm = ({ token }: FormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => setPostData({ ...postData, [e.target.name]: e.target.value });
   
   return (
-    <main>
+    <>
       <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
         <TextField
           multiline
@@ -65,10 +65,11 @@ const PostForm = ({ token }: FormProps) => {
           value={postData.text}
           onChange={(e) => handleChange(e)}
           required
+          InputLabelProps={{ required: false }}
         />
         <Button type='submit' variant='contained'>Post</Button>
       </StyledForm>
-    </main>
+    </>
   );
 };
 

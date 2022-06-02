@@ -1,12 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../Auth';
 import axios from 'axios';
+import styled from 'styled-components';
+import { User } from '../../../types';
 import PostForm from '../Form';
 import PostList from '../List';
+import PostSkeleton from '../Skeleton';
+
+const StyledPostFeed = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`;
 
 const PostFeed = () => {
   const { token } = useAuth();
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<User>({
     _id: '',
     username: '',
     name: '',
@@ -37,11 +46,17 @@ const PostFeed = () => {
   }, [token]);
 
   return (
-    <>
-      <PostForm token={token} />
-      <PostList user={user} posts={posts}/>
-    </>
-  )
+    <StyledPostFeed>
+      {(loading) ? (
+        <PostSkeleton count={2} />
+      ) : (
+        <>
+          <PostForm token={token} />
+          <PostList user={user} posts={posts}/>
+        </>
+      )}
+    </StyledPostFeed>
+  );
 };
 
 export default PostFeed;

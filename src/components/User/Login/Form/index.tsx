@@ -102,7 +102,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           <FormControl error={formError}>
           <FormHeading>Hello again! 🐶</FormHeading>
 
-          <TextField 
+          <TextField
             type='text'
             id='username'
             name='username'
@@ -116,6 +116,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
             required
             error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
             helperText={(inputError.username.length > 1 && inputError.username) || (Object.keys(submitError).length > 0 && submitError.username)}
+            InputLabelProps={{ required: false }}
           />
           <TextField
             type='password'
@@ -132,6 +133,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
             required
             error={inputError.password.length > 1 || typeof submitError.password !== 'undefined'}
             helperText={(inputError.password.length > 1 && inputError.password) || (Object.keys(submitError).length > 0 && submitError.password)}
+            InputLabelProps={{ required: false }}
           />
 
           <div>

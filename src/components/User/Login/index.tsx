@@ -16,7 +16,7 @@ const Login = ({ setShowLogin, setShowSignup }: LoginProps) => {
 
   return (
     <Modal handleClose={() => setShowLogin(false)}>
-      <LoginForm closeModal={closeModal} changeModal={changeModal}  />
+      <LoginForm closeModal={closeModal} changeModal={changeModal} />
     </Modal>
   );
 };

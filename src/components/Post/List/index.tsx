@@ -1,16 +1,5 @@
 import {  } from './styled';
-
-type User = {
-  _id: string;
-  username: string;
-  name: string;
-  email: string;
-  url: string;
-};
-
-type Post = {
-  text?: string;
-};
+import { User, Post } from '../../../types';
 
 interface PostListProps {
   user: User;
