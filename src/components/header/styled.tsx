@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledHeader = styled.nav`
-  background: ${(props) => props.theme.custom.header};
+  background: ${(props) => props.theme.custom.highlight};
   height: 3.25rem;
   width: 100%;
   padding: 0 2rem;

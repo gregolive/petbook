@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../Auth';
 import axios from 'axios';
-import styled from 'styled-components';
 import { User } from '../../../types';
 import PostForm from '../Form';
 import PostList from '../List';
 import PostSkeleton from '../Skeleton';
-
-const StyledPostFeed = styled.main`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
+import { StyledPostFeed, CenterFeed, LeftFeed, RightFeed } from './styled';
 
 const PostFeed = () => {
   const { token } = useAuth();
@@ -51,8 +45,18 @@ const PostFeed = () => {
         <PostSkeleton count={2} />
       ) : (
         <>
-          <PostForm token={token} />
-          <PostList user={user} posts={posts}/>
+          <LeftFeed>
+
+          </LeftFeed>
+
+          <CenterFeed>
+            <PostForm token={token} />
+            <PostList user={user} posts={posts}/>
+          </CenterFeed>
+          
+          <RightFeed>
+
+          </RightFeed>
         </>
       )}
     </StyledPostFeed>

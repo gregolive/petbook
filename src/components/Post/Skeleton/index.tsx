@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -7,9 +8,13 @@ interface PostSkeletonProps {
   count: number;
 };
 
+const StyledSkeleton = styled.div`
+  grid-column: 1 / -1;
+`;
+
 const PostSkeleton = ({ count }: PostSkeletonProps) => {
   return (
-    <>
+    <StyledSkeleton>
       {[...Array(count)].map((num, i) =>
         <Card key={i}>
           <CardHeader
@@ -25,7 +30,7 @@ const PostSkeleton = ({ count }: PostSkeletonProps) => {
           </CardContent>
         </Card>
       )}
-    </>
+    </StyledSkeleton>
   );
 };
 

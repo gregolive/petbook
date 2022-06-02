@@ -5,23 +5,27 @@ declare module '@mui/material/styles' {
     custom: {
       font: string;
       background: string;
-      header: string;
+      highlight: string;
+      shadow: string;
     };
   }
   interface CustomThemeOptions extends ThemeOptions {
     custom?: {
       font?: string;
       background?: string;
-      header?: string;
+      highlight?: string;
+      shadow?: string;
     };
   }
   export function createTheme(options?: CustomThemeOptions): CustomTheme;
-}
+};
 
 const primary = '#069def';
 const secondary = '#f25f5c';
-const black = '#12181b';
 const white = '#fefefe';
+const whiteAlt = '#F5F4F5';
+const black = '#12181b';
+const blackAlt = '#1f2326';
 
 const lightTheme = createTheme({
   palette: {
@@ -31,11 +35,15 @@ const lightTheme = createTheme({
     secondary: {
       main: secondary,
     },
+    background: {
+      paper: whiteAlt,
+    },
   },
   custom: {
     font: black,
     background: white,
-    header: '#F5F4F5',
+    highlight: whiteAlt,
+    shadow: 'rgba(18, 24, 27, 0.1)',
   },
 });
 
@@ -48,11 +56,15 @@ const darkTheme = createTheme({
     secondary: {
       main: secondary,
     },
+    background: {
+      paper: blackAlt,
+    },
   },
   custom: {
     font: white,
     background: black,
-    header: '#1f2326',
+    highlight: blackAlt,
+    shadow: 'rgba(254, 254, 254, 0.1)',
   },
 });
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledFooter = styled.footer`
   color: ${(props) => props.theme.custom.font};
-  background: ${(props) => props.theme.custom.header};
+  background: ${(props) => props.theme.custom.highlight};
   padding: 1rem 0;
   display: flex;
   flex-direction: column;

@@ -14,9 +14,10 @@ const StyledReviews = styled.div`
 `;
 
 const Review = styled.div`
-  border: 1px solid ${(props) => props.theme.custom.header};
   border-radius: 0.5rem;
-  box-shadow: 3px 3px 6px ${(props) => props.theme.custom.header};
+  box-shadow: 0px 5px 5px -3px ${(props) => props.theme.custom.shadow},
+              0px 8px 10px 2px ${(props) => props.theme.custom.shadow},
+              0px 1px 3px 0px ${(props) => props.theme.custom.shadow};
   padding: 1rem;
   text-align: center;
   justify-self: center;
