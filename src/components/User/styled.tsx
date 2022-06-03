@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
-const StyledForm = styled.form`
+const ModalContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+`;
 
+const StyledForm = styled.form`
   .MuiFormControl-root {  
     display: grid;
     gap: 1rem;
@@ -33,4 +38,4 @@ const FormText = styled.p`
   align-items: center;
 `;
 
-export { StyledForm, FormHeading, FormText };
+export { ModalContainer, StyledForm, FormHeading, FormText };

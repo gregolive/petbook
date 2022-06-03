@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 interface AuthData {
   token: string,
@@ -10,7 +11,7 @@ interface AuthContextProvider {
   onLogin: Function,
   onLogout: Function,
   onUpdate: Function,
-}
+};
 
 const AuthContext = createContext<AuthContextProvider>({} as AuthContextProvider);
 
@@ -18,6 +19,14 @@ const AuthProvider = ({ children }: any) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+  // eslint-disable-next-line
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+
+  useEffect(() => {
+    if (cookies.jwt && !token) {
+      setToken(cookies.jwt);
+    }
+  }, [cookies, token])
 
   // navigate when token updates
   useEffect(() => {
@@ -31,6 +40,7 @@ const AuthProvider = ({ children }: any) => {
 
   const handleLogout = (): void => {
     setToken('');
+    removeCookie('jwt');
     localStorage.removeItem('token');
   };
 

@@ -6,8 +6,11 @@ import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
-import { StyledForm, FormHeading, FormText } from '../../styled';
+import FacebookBtn from '../../AuthBtn/Facebook';
+import GoogleBtn from '../../AuthBtn/Google';
+import { ModalContainer, StyledForm, FormHeading, FormText } from '../../styled';
 
 interface LoginFormProps {
   closeModal: Function;
@@ -51,7 +54,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
       .then((res) => {
         onLogin(res.data);
       }, (err) => {
-        setSubmitError(err.response.data.message);
+        setSubmitError(err.response.data.msg);
         setLoading(false);
       });
   };
@@ -97,7 +100,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
     (loading) ? (
       <CircularProgress />
     ) : (
-      <>
+      <ModalContainer>
         <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
           <FormControl error={formError}>
           <FormHeading>Hello again! 🐶</FormHeading>
@@ -147,10 +150,15 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           </FormControl>
         </StyledForm>
 
+        <Divider flexItem>OR</Divider>
+
+        <FacebookBtn />
+        <GoogleBtn />
+
         <FormText>
           Don't have an account? <Button onClick={() => changeModal()}>Register</Button>
         </FormText>
-      </>
+      </ModalContainer>
     )
   );
 };

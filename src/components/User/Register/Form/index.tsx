@@ -6,8 +6,11 @@ import FormHelperText from '@mui/material/FormHelperText';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import CircularProgress from '@mui/material/CircularProgress';
-import { StyledForm, FormHeading, FormText } from '../../styled';
+import FacebookBtn from '../../AuthBtn/Facebook';
+import GoogleBtn from '../../AuthBtn/Google';
+import { ModalContainer, StyledForm, FormHeading, FormText } from '../../styled';
 
 interface RegisterFormProps {
   closeModal: Function;
@@ -122,7 +125,7 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     (loading) ? (
       <CircularProgress />
     ) : (
-      <>
+      <ModalContainer>
         <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
           <FormControl error={formError}>
             <FormHeading>Welcome friend! 🐱</FormHeading>
@@ -215,10 +218,15 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
           </FormControl>
         </StyledForm>
 
+        <Divider flexItem>OR</Divider>
+
+        <FacebookBtn />
+        <GoogleBtn />
+
         <FormText>
           Already have an account? <Button onClick={() => changeModal()}>Log in</Button>
         </FormText>
-      </>
+      </ModalContainer>
     )
   );
 };
