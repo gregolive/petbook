@@ -18,7 +18,7 @@ interface LoginFormProps {
 };
 
 interface ServerError {
-  username?: string;
+  email?: string;
   password?: string;
 };
 
@@ -27,11 +27,11 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
   const form = useRef();
   const [formError, setFormError] = useState(false);
   const [userData, setUserData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const [inputError, setInputError] = useState({
-    username: '',
+    email: '',
     password: '',
   });
   const [submitError, setSubmitError] = useState<ServerError>({});
@@ -39,7 +39,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
 
   const buildFormData = () => {
     const formData = new FormData();
-    formData.append('username', userData.username);
+    formData.append('email', userData.email);
     formData.append('password', userData.password);
 
     return formData;
@@ -49,7 +49,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
     const formData = buildFormData();
     const url = 'http://localhost:3001/api/v1/auth/login';
     const config = { headers: { 'content-type': 'multipart/form-data' } };
-  
+
     axios.post(url, formData, config)
       .then((res) => {
         onLogin(res.data);
@@ -75,16 +75,12 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
     const { validity } = e.target;
 
     switch (true) {
-      case validity['tooShort']:
-        setInputError({ ...inputError, [e.target.name]: `Entered ${e.target.name} must be at least 5 characters long`});
+      case validity['typeMismatch']:
+        setInputError({ ...inputError, [e.target.name]: 'Please enter a valid email'});
         break;
       case validity['patternMismatch']:
-        if (e.target.name === 'username') {
-          setInputError({ ...inputError, [e.target.name]: 'Username can only contain letters, numbers, dashes, and underscores'});
-          break;
-        }
         setInputError({ ...inputError, [e.target.name]: 'Password must be at least 6 characters long and contain an uppercase letter, number, and special character'});
-          break;
+        break;
       default:
         setInputError({ ...inputError, [e.target.name]: ''});
     }
@@ -106,19 +102,19 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
           <FormHeading>Hello again! 🐶</FormHeading>
 
           <TextField
-            type='text'
-            id='username'
-            name='username'
-            label='Username'
+            type='email'
+            id='email'
+            name='email'
+            label='Email'
             variant='outlined'
             size='small'
-            value={userData.username}
+            value={userData.email}
             onChange={handleChange}
             onBlur={(e) => validateInput(e)}
-            inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
+            inputProps={{ }}
             required
-            error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
-            helperText={(inputError.username.length > 1 && inputError.username) || (Object.keys(submitError).length > 0 && submitError.username)}
+            error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
+            helperText={(inputError.email.length > 1 && inputError.email) || (Object.keys(submitError).length > 0 && submitError.email)}
             InputLabelProps={{ required: false }}
           />
           <TextField
@@ -145,7 +141,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
               <Button onClick={() => closeModal()} variant='outlined'>Cancel</Button>
             </ButtonGroup>
     
-            <FormHelperText>{(formError && 'Please enter a valid username and password')}</FormHelperText>
+            <FormHelperText>{(formError && 'Please enter a valid email and password')}</FormHelperText>
           </div>
           </FormControl>
         </StyledForm>

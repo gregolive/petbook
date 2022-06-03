@@ -25,7 +25,6 @@ type Error = {
 };
 
 interface ServerError {
-  username?: Error;
   name?: Error;
   email?: Error;
   password?: Error;
@@ -36,16 +35,14 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
   const form = useRef();
   const [formError, setFormError] = useState(false);
   const [userData, setUserData] = useState({
-    username: '',
-    name: '',
     email: '',
+    name: '',
     password: '',
     passwordConfirmation: '',
   });
   const [inputError, setInputError ] = useState({
-    username: '',
-    name: '',
     email: '',
+    name: '',
     password: '',
     passwordConfirmation: '',
   });
@@ -54,9 +51,8 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
 
   const buildFormData = () => {
     const formData = new FormData();
-    formData.append('username', userData.username);
-    formData.append('name', userData.name);
     formData.append('email', userData.email);
+    formData.append('name', userData.name);
     formData.append('password', userData.password);
 
     return formData;
@@ -92,17 +88,11 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
     const { validity } = e.target;
 
     switch (true) {
-      case validity['tooShort']:
-        setInputError({ ...inputError, [e.target.name]: `Entered ${e.target.name} must be at least 5 characters long`});
-        break;
       case validity['typeMismatch']:
         setInputError({ ...inputError, [e.target.name]: `Please enter a valid ${e.target.name}`});
         break;
       case validity['patternMismatch']:
-        if (e.target.name === 'username') {
-          setInputError({ ...inputError, [e.target.name]: 'Username can only contain letters, numbers, dashes, and underscores'});
-          break;
-        } else if (e.target.name === 'name') {
+        if (e.target.name === 'name') {
           setInputError({ ...inputError, [e.target.name]: 'Name can only contain letters and spaces'});
           break;
         } else if (e.target.name === 'password') {
@@ -130,20 +120,19 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
           <FormControl error={formError}>
             <FormHeading>Welcome friend! 🐱</FormHeading>
 
-            <TextField 
-              type='text'
-              id='username'
-              name='username'
-              label='Username'
+            <TextField
+              type='email'
+              id='email'
+              name='email'
+              label='Email'
               variant='outlined'
               size='small'
-              value={userData.username}
+              value={userData.email}
               onChange={handleChange}
               onBlur={(e) => validateInput(e)}
-              inputProps={{ minLength: 5, pattern: '[a-zA-Z0-9-_]+$' }}
               required
-              error={inputError.username.length > 1 || typeof submitError.username !== 'undefined'}
-              helperText={(inputError.username.length > 1 && inputError.username) || (submitError.username && submitError.username.msg)}
+              error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
+              helperText={(inputError.email.length > 1 && inputError.email) || (submitError.email && submitError.email.msg)}
             />
             <TextField
               type='text'
@@ -159,20 +148,6 @@ const RegisterForm = ({ closeModal, changeModal }: RegisterFormProps) => {
               required
               error={inputError.name.length > 1 || typeof submitError.name !== 'undefined'}
               helperText={(inputError.name.length > 1 && inputError.name) || (submitError.name && submitError.name.msg)}
-            />
-            <TextField
-              type='email'
-              id='email'
-              name='email'
-              label='Email'
-              variant='outlined'
-              size='small'
-              value={userData.email}
-              onChange={handleChange}
-              onBlur={(e) => validateInput(e)}
-              required
-              error={inputError.email.length > 1 || typeof submitError.email !== 'undefined'}
-              helperText={(inputError.email.length > 1 && inputError.email) || (submitError.email && submitError.email.msg)}
             />
             <TextField
               type='password'
