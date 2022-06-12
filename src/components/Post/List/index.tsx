@@ -13,7 +13,6 @@ const StyledList = styled.div`
 `;
 
 const PostList = ({ user, posts }: PostListProps) => {
-  console.log(posts)
   return (
     <StyledList>
       {posts && posts.map((post, i) =>
