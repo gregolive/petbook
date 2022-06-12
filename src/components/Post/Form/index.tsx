@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
+import { AnimatePresence } from 'framer-motion';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import CloseIcon from '@mui/icons-material/Close';
-import { StyledForm, InputRow, ImagePreview } from './styled';
+import { StyledForm, InputRow } from './styled';
+import ImagePreview from '../../ImagePreview';
 
 interface FormProps {
   token: string;
@@ -100,15 +101,12 @@ const PostForm = ({ token }: FormProps) => {
             />
           </IconButton>
         </InputRow>
-
-        {postData.image &&
-          <ImagePreview>
-            <img src={imgPreview} alt='upload' />
-            <IconButton size='small' onClick={() => handleImgClose()}>
-              <CloseIcon color='error' />
-            </IconButton>
-          </ImagePreview>
-        }
+   
+        <AnimatePresence exitBeforeEnter>
+          {postData.image &&
+            <ImagePreview imgPreview={imgPreview} handleImgClose={() => handleImgClose()} />
+          }
+        </AnimatePresence>
         
         <Button type='submit' variant='contained'>Post</Button>
       </StyledForm>

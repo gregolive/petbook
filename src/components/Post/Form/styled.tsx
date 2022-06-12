@@ -1,4 +1,3 @@
-import Card from '@mui/material/Card';
 import styled from 'styled-components';
 
 const StyledForm = styled.form`
@@ -16,21 +15,4 @@ const InputRow = styled.div`
   gap: 0.25rem;
 `;
 
-const ImagePreview = styled(Card)`
-  display: flex;
-  justify-content: center;
-  position: relative;
-
-  img {
-    width: 50%;
-    height: auto;
-  }
-  
-  button {
-    position: absolute;
-    top: 0.25rem;
-    right: 0.25rem;
-  }
-`;
-
-export { StyledForm, InputRow, ImagePreview };
+export { StyledForm, InputRow };
