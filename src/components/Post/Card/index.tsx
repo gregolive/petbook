@@ -22,7 +22,7 @@ const StyledCard = styled(Card)`
 `;
 
 const PostCard = ({ user, post }: PostCardProps) => {
-  const { author, created_at, url: postUrl } = post;
+  const { text, img_url, author, created_at, url: postUrl } = post;
   const { username: authorUsername, name: authorName, url: authorUrl } = author;
 
   return (
@@ -38,18 +38,18 @@ const PostCard = ({ user, post }: PostCardProps) => {
         subheader={`${formatDistanceToNow(parseISO(created_at))} ago`}
       />  
     
-      {post.image && (
+      {img_url && (
         <CardMedia
           component='img'
-          image='https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512'
-          alt='Nicola Sturgeon on a TED talk stage'
+          image={img_url}
+          alt={`${authorName} ${created_at}`}
         />
       )}
       
-      {post.text && (
+      {text && (
         <CardContent>
           <Typography variant='body1' color='text.secondary' component='p'>
-            {post.text}
+            {text}
           </Typography>
         </CardContent>
       )}

@@ -10,9 +10,10 @@ import ImagePreview from '../../ImagePreview';
 
 interface FormProps {
   token: string;
+  addPost: Function;
 };
 
-const PostForm = ({ token }: FormProps) => {
+const PostForm = ({ token, addPost }: FormProps) => {
   const form = useRef();
   const [postData, setPostData] = useState({
     text: '',
@@ -33,9 +34,15 @@ const PostForm = ({ token }: FormProps) => {
     return () => URL.revokeObjectURL(imgUrl);
   }, [postData.image]);
 
+  const resetForm = () => setPostData({
+    text: '',
+    image: null,
+  });
+
   const buildFormData = () => {
     const formData = new FormData();
     formData.append('text', postData.text);
+    postData.image && formData.append('image', postData.image);
 
     return formData;
   };
@@ -52,7 +59,8 @@ const PostForm = ({ token }: FormProps) => {
   
     axios.post(url, data, config)
       .then((res) => {
-        console.log(res);
+        addPost(res.data.post);
+        resetForm();
       }, (err) => {
         console.log(err);
       });
@@ -62,7 +70,6 @@ const PostForm = ({ token }: FormProps) => {
     e.preventDefault();
     
     const validForm = (e.target as HTMLFormElement).checkValidity();
-    console.log(validForm);
     if (validForm) {
       formSubmit();
     }

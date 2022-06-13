@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../Auth';
 import axios from 'axios';
-import { User } from '../../../types';
+import { User, Post } from '../../../types';
 import PostForm from '../Form';
 import PostList from '../List';
 import PostSkeleton from '../Skeleton';
@@ -16,7 +16,7 @@ const PostFeed = () => {
     email: '',
     url: '',
   });
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch feed data
@@ -39,6 +39,8 @@ const PostFeed = () => {
       });
   }, [token]);
 
+  const addPost = (post: Post) => setPosts([post, ...posts]);
+
   return (
     <StyledPostFeed>
       {(loading) ? (
@@ -50,7 +52,7 @@ const PostFeed = () => {
           </LeftFeed>
 
           <CenterFeed>
-            <PostForm token={token} />
+            <PostForm token={token} addPost={addPost} />
             <PostList user={user} posts={posts}/>
           </CenterFeed>
           

@@ -8,8 +8,8 @@ export type User = {
 
 export type Post = {
   author: User;
-  text?: string;
-  image?: any;
+  text: string;
+  img_url: string | null;
   url: string;
   created_at: string;
 };
