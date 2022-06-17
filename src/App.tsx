@@ -21,7 +21,7 @@ const App = () => {
       localStorage.setItem('dark', JSON.stringify(true));
       setTheme(darkTheme);
     } else {
-      localStorage.setItem('dark', JSON.stringify(false));
+      localStorage.setItem('light', JSON.stringify(false));
       setTheme(lightTheme);
     }
   };

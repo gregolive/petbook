@@ -16,6 +16,7 @@ const PostFeed = () => {
     email: '',
     url: '',
   });
+  const [page, setPage] = useState(1);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -39,6 +40,24 @@ const PostFeed = () => {
       });
   }, [token]);
 
+  const updateFeed = () => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/post/index/${page}`;
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+        authorization: `Bearer ${token}`,
+      },
+    };
+  
+    axios.get(url, config)
+      .then((res) => {
+        setPosts([...posts, ...res.data.posts]);
+        setPage(page + 1);
+      }, (err) => {
+        console.log(err);
+      });
+  };
+
   const addPost = (post: Post) => setPosts([post, ...posts]);
 
   return (
@@ -53,7 +72,7 @@ const PostFeed = () => {
 
           <CenterFeed>
             <PostForm token={token} addPost={addPost} />
-            <PostList user={user} posts={posts}/>
+            <PostList user={user} posts={posts} update={updateFeed} />
           </CenterFeed>
           
           <RightFeed>
