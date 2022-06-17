@@ -10,6 +10,8 @@ interface PostSkeletonProps {
 
 const StyledSkeleton = styled.div`
   grid-column: 1 / -1;
+  display: grid;
+  gap: 1.5rem;
 `;
 
 const PostSkeleton = ({ count }: PostSkeletonProps) => {

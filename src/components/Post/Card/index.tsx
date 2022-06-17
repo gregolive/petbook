@@ -19,10 +19,16 @@ const StyledCard = styled(Card)`
   box-shadow: 0px 5px 5px -3px ${(props) => props.theme.custom.shadow},
               0px 8px 10px 2px ${(props) => props.theme.custom.shadow},
               0px 1px 3px 0px ${(props) => props.theme.custom.shadow} !important;
+  display: grid;
+
+  .MuiCardMedia-root {
+    justify-self: center;
+    width: 80%;
+  }
 `;
 
 const PostCard = ({ user, post }: PostCardProps) => {
-  const { text, img_url, author, created_at, url: postUrl } = post;
+  const { text, image, author, createdAt, url: postUrl } = post;
   const { username: authorUsername, name: authorName, url: authorUrl } = author;
 
   return (
@@ -35,14 +41,14 @@ const PostCard = ({ user, post }: PostCardProps) => {
           </IconButton>
         }
         title={authorName}
-        subheader={`${formatDistanceToNow(parseISO(created_at))} ago`}
+        subheader={`${formatDistanceToNow(parseISO(createdAt))} ago`}
       />  
     
-      {img_url && (
+      {image && (
         <CardMedia
           component='img'
-          image={img_url}
-          alt={`${authorName} ${created_at}`}
+          image={`https://petbook-social.s3.ap-northeast-1.amazonaws.com/${image}`}
+          alt={`${authorName} ${createdAt}`}
         />
       )}
       

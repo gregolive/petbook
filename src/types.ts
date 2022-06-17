@@ -9,7 +9,7 @@ export type User = {
 export type Post = {
   author: User;
   text: string;
-  img_url: string | null;
+  image: string | null;
   url: string;
-  created_at: string;
+  createdAt: string;
 };

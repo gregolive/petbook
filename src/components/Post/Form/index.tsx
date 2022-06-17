@@ -103,6 +103,7 @@ const PostForm = ({ token, addPost }: FormProps) => {
               id='image'
               name='image'
               type='file'
+              accept='image/png, image/gif, image/jpeg'
               hidden
               onChange={(e) => handleUpload(e)}
             />
