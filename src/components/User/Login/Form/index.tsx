@@ -47,7 +47,7 @@ const LoginForm = ({ closeModal, changeModal }: LoginFormProps) => {
 
   const formSubmit = (): void => {
     const formData = buildFormData();
-    const url = 'http://localhost:3001/api/v1/auth/login';
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/auth/login`;
     const config = { headers: { 'content-type': 'multipart/form-data' } };
 
     axios.post(url, formData, config)

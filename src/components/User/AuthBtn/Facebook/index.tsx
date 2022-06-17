@@ -21,7 +21,7 @@ const StyledFacebookBtn = styled(Button)`
 `;
 
 const FacebookBtn = () => {
-  const handleClick = () => window.open('http://localhost:3001/api/v1/auth/facebook', '_self');
+  const handleClick = () => window.open(`${process.env.REACT_APP_SERVER_URL}/api/v1/auth/facebook`, '_self');
 
   return (
     <StyledFacebookBtn variant='contained' onClick={handleClick}>

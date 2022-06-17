@@ -49,7 +49,7 @@ const PostForm = ({ token, addPost }: FormProps) => {
 
   const formSubmit = (): void => {
     const data = buildFormData();
-    const url = 'http://localhost:3001/api/v1/post/create';
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/post/create`;
     const config = {
       headers: {
         'content-type': 'multipart/form-data',

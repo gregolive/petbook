@@ -20,8 +20,8 @@ const StyledGoogleBtn = styled(Button)`
   }
 `;
 
-const GoogleBtn = () => {
-  const handleClick = () => window.open('http://localhost:3001/api/v1/auth/google', '_self');
+const GoogleBtn = () => {//${process.env.REACT_APP_SERVER_URL}
+  const handleClick = () => window.open(`${process.env.REACT_APP_SERVER_URL}/api/v1/auth/google`, '_self');
 
   return (
     <StyledGoogleBtn variant='contained' onClick={handleClick}>

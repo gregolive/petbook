@@ -21,7 +21,7 @@ const PostFeed = () => {
 
   // Fetch feed data
   useEffect(() => {
-    const url = 'http://localhost:3001/api/v1/post/index';
+    const url = `${process.env.REACT_APP_SERVER_URL}/api/v1/post/index`;
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
