@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import Card from '@mui/material/Card';
@@ -6,9 +7,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { User, Post } from '../../../types';
+import CardMenu from './CardMenu';
 
 interface PostCardProps {
   user: User;
@@ -32,34 +32,36 @@ const PostCard = ({ user, post }: PostCardProps) => {
   const { username: authorUsername, name: authorName, url: authorUrl } = author;
 
   return (
-    <StyledCard>
-      <CardHeader
-        avatar={<Avatar alt={`${authorUsername} avatar`} src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg' />}
-        action={
-          <IconButton aria-label='see more'>
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={authorName}
-        subheader={`${formatDistanceToNow(parseISO(createdAt))} ago`}
-      />  
-    
-      {image && (
-        <CardMedia
-          component='img'
-          image={`https://petbook-social.s3.ap-northeast-1.amazonaws.com/${image}`}
-          alt={`${authorName} ${createdAt}`}
-        />
-      )}
+    <motion.div
+      initial={{ opacity: 0, scale: 0.25 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+    >
+      <StyledCard>
+        <CardHeader
+          avatar={<Avatar alt={`${authorUsername} avatar`} src='https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg' />}
+          action={<CardMenu />}
+          title={authorName}
+          subheader={`${formatDistanceToNow(parseISO(createdAt))} ago`}
+        />  
       
-      {text && (
-        <CardContent>
-          <Typography variant='body1' color='text.secondary' component='p'>
-            {text}
-          </Typography>
-        </CardContent>
-      )}
-    </StyledCard>
+        {image && (
+          <CardMedia
+            component='img'
+            image={`https://petbook-social.s3.ap-northeast-1.amazonaws.com/${image}`}
+            alt={`${authorName} ${createdAt}`}
+          />
+        )}
+        
+        {text && (
+          <CardContent>
+            <Typography variant='body1' color='text.secondary' component='p'>
+              {text}
+            </Typography>
+          </CardContent>
+        )}
+      </StyledCard>
+    </motion.div>
   );
 };
 
