@@ -71,7 +71,7 @@ const PostFeed = () => {
           </LeftFeed>
 
           <CenterFeed>
-            <PostForm token={token} addPost={addPost} />
+            <PostForm addPost={addPost} />
             <PostList user={user} posts={posts} update={updateFeed} />
           </CenterFeed>
           

@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { useAuth } from '../../Auth';
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
 import TextField from '@mui/material/TextField';
@@ -9,11 +10,11 @@ import { StyledForm, InputRow } from './styled';
 import ImagePreview from '../../ImagePreview';
 
 interface FormProps {
-  token: string;
   addPost: Function;
 };
 
-const PostForm = ({ token, addPost }: FormProps) => {
+const PostForm = ({ addPost }: FormProps) => {
+  const { token } = useAuth();
   const form = useRef();
   const [postData, setPostData] = useState({
     text: '',
@@ -82,43 +83,41 @@ const PostForm = ({ token, addPost }: FormProps) => {
   const handleImgClose = (): void => setPostData({ ...postData, image: null });
   
   return (
-    <>
-      <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
-        <InputRow>
-          <TextField
-            multiline
-            id='text'
-            name='text'
-            label="Woof's on your mind?"
-            size='small'
-            value={postData.text}
-            onChange={(e) => handleChange(e)}
-            required
-            InputLabelProps={{ required: false }}
-          />
-          
-          <IconButton component='label' color='primary'>
-            <PhotoCamera />
-            <input
-              id='image'
-              name='image'
-              type='file'
-              accept='image/png, image/gif, image/jpeg'
-              hidden
-              onChange={(e) => handleUpload(e)}
-            />
-          </IconButton>
-        </InputRow>
-   
-        <AnimatePresence exitBeforeEnter>
-          {postData.image &&
-            <ImagePreview imgPreview={imgPreview} handleImgClose={() => handleImgClose()} />
-          }
-        </AnimatePresence>
+    <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
+      <InputRow>
+        <TextField
+          multiline
+          id='text'
+          name='text'
+          label="Woof's on your mind?"
+          size='small'
+          value={postData.text}
+          onChange={(e) => handleChange(e)}
+          required
+          InputLabelProps={{ required: false }}
+        />
         
-        <Button type='submit' variant='contained'>Post</Button>
-      </StyledForm>
-    </>
+        <IconButton component='label' color='primary'>
+          <PhotoCamera />
+          <input
+            id='image'
+            name='image'
+            type='file'
+            accept='image/png, image/gif, image/jpeg'
+            hidden
+            onChange={(e) => handleUpload(e)}
+          />
+        </IconButton>
+      </InputRow>
+  
+      <AnimatePresence exitBeforeEnter>
+        {postData.image &&
+          <ImagePreview imgPreview={imgPreview} handleImgClose={() => handleImgClose()} />
+        }
+      </AnimatePresence>
+      
+      <Button type='submit' variant='contained'>Post</Button>
+    </StyledForm>
   );
 };
 

@@ -5,10 +5,15 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import { User, Post } from '../../../types';
 import CardMenu from './CardMenu';
+import CommentForm from '../../Comment/Form';
 
 interface PostCardProps {
   user: User;
@@ -28,7 +33,7 @@ const StyledCard = styled(Card)`
 `;
 
 const PostCard = ({ user, post }: PostCardProps) => {
-  const { text, image, author, createdAt, url: postUrl } = post;
+  const { _id: postId, text, image, author, createdAt, url: postUrl } = post;
   const { username: authorUsername, name: authorName, url: authorUrl } = author;
 
   return (
@@ -60,6 +65,13 @@ const PostCard = ({ user, post }: PostCardProps) => {
             </Typography>
           </CardContent>
         )}
+
+        <CardActions>
+          <Button size='small' startIcon={<ThumbUpIcon />}>Like</Button>
+          <Button size='small' startIcon={<ModeCommentIcon />}>Comment</Button>
+        </CardActions>
+
+        <CommentForm postId={postId} listView={true} />
       </StyledCard>
     </motion.div>
   );

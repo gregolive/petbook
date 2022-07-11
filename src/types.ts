@@ -7,9 +7,10 @@ export type User = {
 };
 
 export type Post = {
-  author: User;
+  _id: string;
   text: string;
   image: string | null;
+  author: User;
   url: string;
   createdAt: string;
 };
