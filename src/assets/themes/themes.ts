@@ -7,6 +7,7 @@ declare module '@mui/material/styles' {
       background: string;
       highlight: string;
       shadow: string;
+      commentField: string;
     };
   }
   interface CustomThemeOptions extends ThemeOptions {
@@ -15,6 +16,7 @@ declare module '@mui/material/styles' {
       background?: string;
       highlight?: string;
       shadow?: string;
+      commentField?: string;
     };
   }
   export function createTheme(options?: CustomThemeOptions): CustomTheme;
@@ -44,6 +46,7 @@ const lightTheme = createTheme({
     background: white,
     highlight: whiteAlt,
     shadow: 'rgba(18, 24, 27, 0.1)',
+    commentField: 'rgb(235, 236, 238)',
   },
 });
 
@@ -65,6 +68,7 @@ const darkTheme = createTheme({
     background: black,
     highlight: blackAlt,
     shadow: 'rgba(254, 254, 254, 0.1)',
+    commentField: 'rgb(58, 59, 60)',
   },
 });
 

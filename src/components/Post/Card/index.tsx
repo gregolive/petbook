@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,28 +7,18 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import { User, Post } from '../../../types';
 import CardMenu from './CardMenu';
 import CommentForm from '../../Comment/Form';
+import { StyledCard, CardButton } from './styled';
 
 interface PostCardProps {
   user: User;
   post: Post;
 };
-
-const StyledCard = styled(Card)`
-  box-shadow: 0px 5px 5px -3px ${(props) => props.theme.custom.shadow},
-              0px 8px 10px 2px ${(props) => props.theme.custom.shadow},
-              0px 1px 3px 0px ${(props) => props.theme.custom.shadow} !important;
-  display: grid;
-
-  .MuiCardMedia-root {
-    justify-self: center;
-    width: 80%;
-  }
-`;
 
 const PostCard = ({ user, post }: PostCardProps) => {
   const { _id: postId, text, image, author, createdAt, url: postUrl } = post;
@@ -67,9 +55,18 @@ const PostCard = ({ user, post }: PostCardProps) => {
         )}
 
         <CardActions>
+          <CardButton>3 Likes</CardButton>
+          <CardButton>2 Comments</CardButton>
+        </CardActions>
+
+        <Divider />
+
+        <CardActions>
           <Button size='small' startIcon={<ThumbUpIcon />}>Like</Button>
           <Button size='small' startIcon={<ModeCommentIcon />}>Comment</Button>
         </CardActions>
+
+        <Divider />
 
         <CommentForm postId={postId} listView={true} />
       </StyledCard>

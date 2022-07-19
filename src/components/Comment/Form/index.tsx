@@ -1,10 +1,12 @@
 import { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../../Auth';
 import axios from 'axios';
+import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import { StyledForm, InputRow } from './styled';
+import avatar from '../../../assets/img/avatar.jpg';
 
 interface FormProps {
   postId: string,
@@ -63,13 +65,15 @@ const CommentForm = ({ postId, listView }: FormProps) => {
   return (
     <StyledForm ref={form.current} onSubmit={handleSubmit} noValidate>
       <InputRow>
+        <Avatar alt='Remy Sharp' src={avatar} sx={{ width: 32, height: 32 }} />
+
         <TextField
           multiline
           id='text'
           name='text'
           label='Add a comment...'
           size='small'
-          variant='filled'
+          variant='outlined'
           value={commentData.text}
           onChange={(e) => handleChange(e)}
           required
